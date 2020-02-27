@@ -1,0 +1,28 @@
+
+import React from "react"
+import Tile from "./tile"
+
+
+const DIRECTIONS = {
+    "ArrowUp": [1, 0],
+    "ArrowDown": [-1, 0],
+    "ArrowLeft": [0, -1],
+    "ArrowRight": [0, 1],
+}
+
+class Board extends React.Component{
+
+    constructor(props){
+        super(props)
+        this.state = {}
+    }
+
+    render(){
+        return <div>
+            <p>BOARD LOADED</p>
+        </div>
+    }
+
+}
+
+export default Board
