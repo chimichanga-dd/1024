@@ -20,7 +20,6 @@ class Board extends React.Component{
 
     render(){
         return <div className="board">
-            <p>BOARD LOADED</p>
             <GridContainer />
             <TileContainer tiles={this.props.tiles}/>
         </div>
