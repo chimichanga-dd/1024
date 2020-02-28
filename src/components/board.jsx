@@ -1,6 +1,6 @@
 
 import React from "react"
-import Tile from "./tile"
+import TileContainer from "./tile_container";
 
 
 const DIRECTIONS = {
@@ -18,8 +18,9 @@ class Board extends React.Component{
     }
 
     render(){
-        return <div>
+        return <div className="board">
             <p>BOARD LOADED</p>
+            <TileContainer tiles={this.props.tiles}/>
         </div>
     }
 

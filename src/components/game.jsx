@@ -1,6 +1,7 @@
 
 
 import React from "react";
+import Board from "./board"
 
 class Game extends React.Component{
 
@@ -9,6 +10,11 @@ class Game extends React.Component{
 
         this.state = this.startState()
     }
+
+    componentDidMount(){
+        this.randomTile()
+    }
+
 
     startState(){
         let tiles = []
@@ -23,9 +29,27 @@ class Game extends React.Component{
         }
     }
 
+    random(number){
+        return Math.floor(Math.random() * number)
+    }
+
+    copyArray(i_array){
+        return i_array.map(function(arr){
+            return arr.slice()
+        })
+    }
+
+    randomTile(){
+        let x = this.random(4)
+        let y = this.random(4)
+        let boardCopy = this.copyArray(this.state.tiles)
+        boardCopy[x][y] = { value: 2, col: x, row: y }
+        this.setState({tiles: boardCopy})
+    }
+
     render(){
-        return <div>
-            <p>GAME LOADED</p>
+        return <div className="board-container">
+            <Board tiles={this.state.tiles}/>
         </div>
     }
 
