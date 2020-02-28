@@ -4,7 +4,6 @@ class Tile extends React.Component{
 
     render(){
         let{ tile, col, row } = this.props
-        console.log(this.props)
         let x = col * (100 + 10) + 'px'
         let y = row * (100 + 10) + 'px'
         let pos = {transform: `translate3d(${x}, ${y}, 0)`}

@@ -2,6 +2,14 @@
 
 import React from "react";
 import Board from "./board"
+import cloneDeep from 'lodash/clonedeep'
+
+const DIRECTIONS = {
+    37: [-1, 0], //left
+    38: [0, -1], //up
+    39: [1, 0], //right
+    40: [0, 1], //down
+}
 
 class Game extends React.Component{
 
@@ -9,6 +17,7 @@ class Game extends React.Component{
         super(props)
 
         this.state = this.startState()
+        this.handleInput = this.handleInput.bind(this)
     }
 
     componentDidMount(){
@@ -47,9 +56,66 @@ class Game extends React.Component{
         this.setState({tiles: boardCopy})
     }
 
+    move(dir){
+        let moveDir = DIRECTIONS[dir]
+
+        for(let i = 0; i < 4; i++){
+            for(let j = 0; j < 4; j++){
+                let row = i
+                let col = j;
+
+                //down arrow
+                if(dir == 40){
+                    row = 4 - i - 1
+                }
+                //right arrow
+                if(dir == 39){
+                    col = 4 - j - 1
+                }
+                
+                let currentTile = this.state.tiles[row][col]
+
+                if(!currentTile){ continue }
+
+                let nextRow = row + moveDir[1]
+                let nextCol = col + moveDir[0]
+
+                while ((nextRow >=0 && nextRow < 4) && (nextCol >=0 && nextCol < 4)){
+                    let nextCell = this.state.tiles[nextRow][nextCol];
+                    if(nextCell){ break }
+                    nextRow+= moveDir[1]
+                    nextCol+= moveDir[0]
+                }
+    
+                nextRow -= moveDir[1];
+                nextCol -= moveDir[0];
+                
+                if (nextCol !== col || nextRow !== row){
+                    let updatedTiles = cloneDeep(this.state.tiles);
+                    updatedTiles[nextRow][nextCol] = { value: currentTile.value, row: nextRow, col: nextCol }
+                    updatedTiles[row][col] = null
+
+                    this.setState({ tiles: updatedTiles })
+                }
+                
+            }
+        }
+    }
+
+    handleInput(e){
+        console.log(e.keyCode)
+        this.move(e.keyCode)
+        
+    }
+
     render(){
-        return <div className="board-container">
-            <Board tiles={this.state.tiles}/>
+        return <div className="board-container" 
+                onKeyDown={this.handleInput}
+                tabIndex="0"
+            >
+            <Board 
+                tiles={this.state.tiles}
+            />
         </div>
     }
 
