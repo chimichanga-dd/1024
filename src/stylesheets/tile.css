@@ -17,3 +17,26 @@
     justify-content: center;
     align-items: center;
 }
+
+.tile-val-2{
+    background-color: #eee4da;
+}
+
+.tile-val-4{
+    background-color: #ede0c8;
+}
+.tile-val-8{
+    background-color: #f2b179;
+}
+.tile-val-16{
+    background-color: #f7b2a1;
+}
+.tile-val-32{
+    background-color: #f59563;
+}
+.tile-val-64{
+    background-color: #f65e3b;
+}
+.tile-val-128{
+    background-color: #edcf72;
+}
