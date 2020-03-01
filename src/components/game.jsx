@@ -21,12 +21,8 @@ class Game extends React.Component{
     }
 
     componentDidMount(){
-        this.randomTile()
-        setTimeout(() => {
-            this.randomTile()
-        }, 1);
+        this.createRandomTile()
     }
-
 
     startState(){
         let tiles = []
@@ -52,11 +48,22 @@ class Game extends React.Component{
         })
     }
 
-    randomTile(){
-        let x = this.random(4)
-        let y = this.random(4)
-        console.log(this.state)
+    createRandomTile(){
         let boardCopy = cloneDeep(this.state.tiles)
+        let emptyTiles = []
+
+        for (let i = 0; i < 4; i++) {
+            let row = boardCopy[i];
+            for (let j = 0; j < 4; j++) {
+                let spot = row[j]
+                if(!spot)
+                emptyTiles.push([i,j])
+            }
+        }
+
+        let randomNumber = this.random(emptyTiles.length)
+        
+        let [x,y] = emptyTiles[randomNumber]
         boardCopy[x][y] = { value: 2, col: x, row: y, uid: this.state.tileIdx}
 
         this.setState({ tiles: boardCopy, tileIdx: this.state.tileIdx + 1})
@@ -64,7 +71,7 @@ class Game extends React.Component{
 
     move(dir){
         let moveDir = DIRECTIONS[dir]
-        
+        let isMoving = false
         let updatedTiles = cloneDeep(this.state.tiles);
 
         for(let i = 0; i < 4; i++){
@@ -87,46 +94,50 @@ class Game extends React.Component{
 
                 let nextRow = row + moveDir[1]
                 let nextCol = col + moveDir[0]
+                let nextTile
 
                 while ((nextRow >=0 && nextRow < 4) && (nextCol >=0 && nextCol < 4)){
-                    let nextCell = updatedTiles[nextRow][nextCol];
-                    if(nextCell){
-                        console.log(`nextRow: ${nextRow}, nextCol:${nextCol}`)
-                        console.log(nextCell)
-                        console.log("broken")
+                    nextTile = updatedTiles[nextRow][nextCol];
+                    if(nextTile){
                         break
                     }
                     nextRow+= moveDir[1]
                     nextCol+= moveDir[0]
                     
                 }
-    
+
                 nextRow -= moveDir[1];
                 nextCol -= moveDir[0];
                 
-                if (nextCol !== col || nextRow !== row){
-                    console.log("different column")
-                    updatedTiles[nextRow][nextCol] = { value: currentTile.value, 
-                                                       row: nextRow,
-                                                       col: nextCol, 
-                                                       uid: currentTile.uid }
+                if( nextTile && nextTile.value == currentTile.value ){
+                    nextTile.value = nextTile.value * 2;
                     updatedTiles[row][col] = null
+                    isMoving = true
+                } else {
+                    if (nextCol !== col || nextRow !== row) {
+                        updatedTiles[nextRow][nextCol] = {
+                            value: currentTile.value,
+                            row: nextRow,
+                            col: nextCol,
+                            uid: currentTile.uid
+                        }
+                        updatedTiles[row][col] = null
+                        isMoving = true
+                    }   
                 }
             }
         }
+    
+        if (isMoving){
+            this.setState({ tiles: updatedTiles }, () => this.createRandomTile())
+            isMoving = false
+        }
 
-        
-            
-            this.setState({ tiles: updatedTiles })
-        
-        console.log(this.state.tiles)
-        
     }
 
     handleInput(e){
         console.log(e.keyCode)
         this.move(e.keyCode)
-        
     }
 
     render(){
