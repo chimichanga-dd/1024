@@ -44,12 +44,6 @@ class Game extends React.Component{
         return Math.floor(Math.random() * number)
     }
 
-    copyArray(i_array){
-        return i_array.map(function(arr){
-            return arr.slice()
-        })
-    }
-
     createRandomTile(){
         let boardCopy = cloneDeep(this.state.tiles)
         let emptyTiles = []
@@ -74,7 +68,10 @@ class Game extends React.Component{
                             canMerge: true
                         }
 
-        this.setState({ tiles: boardCopy, tileIdx: this.state.tileIdx + 1})
+        this.setState(
+            { tiles: boardCopy, tileIdx: this.state.tileIdx + 1},
+            () => this.setGameWon()
+        )
     }
 
     move(dir){
@@ -143,13 +140,7 @@ class Game extends React.Component{
         if (moved) {
             this.setState(
                 { tiles: updatedTiles },
-                () => {
-                    this.createRandomTile();
-                    this.setGameWon()
-                    if (!this.canMove()) {
-                        this.setState({ moveable: false })
-                    }
-                }
+                () => {this.createRandomTile()}
             )
             moved = false
         }
@@ -161,25 +152,26 @@ class Game extends React.Component{
 
         for (let i = 0; i < 4; i++) {
             for (let j = 0; j < 4; j++) {
-                let belowRow, currentTile, rightTile, belowTile
-
-                belowRow = tiles[i + 1];
-                if (!belowRow) continue
+                let currentTile, rightTile, belowTile
 
                 currentTile = tiles[i][j]
-                rightTile = tiles[i][j + 1]
-                belowTile = tiles[i + 1][j]
-                
+
                 if(!currentTile){
                     return true
                 }
 
-                if(currentTile && rightTile && currentTile.value == rightTile.value){
-                    return true
+                if (j < 3){
+                    rightTile = tiles[i][j + 1]
+                    if (currentTile && rightTile && currentTile.value == rightTile.value) {
+                        return true
+                    }
                 }
 
-                if(currentTile && belowTile && currentTile.value == belowTile.value){
-                    return true
+                if(i < 3){
+                    belowTile = tiles[i + 1][j]
+                    if(currentTile && belowTile && currentTile.value == belowTile.value){
+                        return true
+                    }
                 }
             }
         }
@@ -187,18 +179,23 @@ class Game extends React.Component{
     }
 
     setGameWon(){
+        let moveable = true
+        if (!this.canMove()) {
+            moveable = false
+        }
+
         let tiles = this.state.tiles
-        console.log(tiles)
+        let gameWon = false
         for (let i = 0; i < 4; i++) {
             for (let j = 0; j < 4; j++) {
                 let tile = tiles[i][j]
                 if(tile && tile.value == 16){
-                    this.setState({gameWon: true})
-                    console.log("set game won")
+                    gameWon = true
                 }
             }
         }
-        
+
+        this.setState({moveable, gameWon})
     }
 
     gameMessage(){
