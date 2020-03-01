@@ -64,7 +64,13 @@ class Game extends React.Component{
         let randomNumber = this.random(emptyTiles.length)
         
         let [x,y] = emptyTiles[randomNumber]
-        boardCopy[x][y] = { value: 2, col: x, row: y, uid: this.state.tileIdx}
+        boardCopy[x][y] = { 
+                            value: 2,
+                            col: x,
+                            row: y,
+                            uid: this.state.tileIdx,
+                            canMerge: true
+                        }
 
         this.setState({ tiles: boardCopy, tileIdx: this.state.tileIdx + 1})
     }
@@ -92,6 +98,8 @@ class Game extends React.Component{
 
                 if(!currentTile){ continue }
 
+                currentTile.canMerge = true;
+
                 let nextRow = row + moveDir[1]
                 let nextCol = col + moveDir[0]
                 let nextTile
@@ -109,8 +117,9 @@ class Game extends React.Component{
                 nextRow -= moveDir[1];
                 nextCol -= moveDir[0];
                 
-                if( nextTile && nextTile.value == currentTile.value ){
+                if( nextTile && nextTile.canMerge && nextTile.value == currentTile.value ){
                     nextTile.value = nextTile.value * 2;
+                    nextTile.canMerge = false;
                     updatedTiles[row][col] = null
                     isMoving = true
                 } else {
@@ -119,7 +128,8 @@ class Game extends React.Component{
                             value: currentTile.value,
                             row: nextRow,
                             col: nextCol,
-                            uid: currentTile.uid
+                            uid: currentTile.uid,
+                            canMerge: true
                         }
                         updatedTiles[row][col] = null
                         isMoving = true
@@ -136,7 +146,7 @@ class Game extends React.Component{
     }
 
     handleInput(e){
-        console.log(e.keyCode)
+        e.stopPropagation();
         this.move(e.keyCode)
     }
 
