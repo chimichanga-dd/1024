@@ -34,7 +34,9 @@ class Game extends React.Component{
         }
         return{
             tiles,
-            tileIdx: 0
+            tileIdx: 0,
+            moveable: true,
+            gameWon: false,
         }
     }
 
@@ -77,7 +79,7 @@ class Game extends React.Component{
 
     move(dir){
         let moveDir = DIRECTIONS[dir]
-        let isMoving = false
+        let moved = false
         let updatedTiles = cloneDeep(this.state.tiles);
 
         for(let i = 0; i < 4; i++){
@@ -121,7 +123,7 @@ class Game extends React.Component{
                     nextTile.value = nextTile.value * 2;
                     nextTile.canMerge = false;
                     updatedTiles[row][col] = null
-                    isMoving = true
+                    moved = true
                 } else {
                     if (nextCol !== col || nextRow !== row) {
                         updatedTiles[nextRow][nextCol] = {
@@ -132,17 +134,86 @@ class Game extends React.Component{
                             canMerge: true
                         }
                         updatedTiles[row][col] = null
-                        isMoving = true
+                        moved = true
                     }   
                 }
             }
         }
     
-        if (isMoving){
-            this.setState({ tiles: updatedTiles }, () => this.createRandomTile())
-            isMoving = false
+        if (moved) {
+            this.setState(
+                { tiles: updatedTiles },
+                () => {
+                    this.createRandomTile();
+                    this.setGameWon()
+                    if (!this.canMove()) {
+                        this.setState({ moveable: false })
+                    }
+                }
+            )
+            moved = false
         }
 
+    }
+
+    canMove(){
+        let tiles = this.state.tiles;
+
+        for (let i = 0; i < 4; i++) {
+            for (let j = 0; j < 4; j++) {
+                let belowRow, currentTile, rightTile, belowTile
+
+                belowRow = tiles[i + 1];
+                if (!belowRow) continue
+
+                currentTile = tiles[i][j]
+                rightTile = tiles[i][j + 1]
+                belowTile = tiles[i + 1][j]
+                
+                if(!currentTile){
+                    return true
+                }
+
+                if(currentTile && rightTile && currentTile.value == rightTile.value){
+                    return true
+                }
+
+                if(currentTile && belowTile && currentTile.value == belowTile.value){
+                    return true
+                }
+            }
+        }
+        return false
+    }
+
+    setGameWon(){
+        let tiles = this.state.tiles
+        console.log(tiles)
+        for (let i = 0; i < 4; i++) {
+            for (let j = 0; j < 4; j++) {
+                let tile = tiles[i][j]
+                if(tile && tile.value == 16){
+                    this.setState({gameWon: true})
+                    console.log("set game won")
+                }
+            }
+        }
+        
+    }
+
+    gameMessage(){
+        let message
+        if( this.state.gameWon){
+            message = "You Win"
+        }else if (!this.state.moveable){
+            message = "You Lose"
+        } else {
+            return null
+        }
+
+        return(<div className="message-modal">
+            <p>{message}</p>
+        </div>)
     }
 
     handleInput(e){
@@ -151,10 +222,12 @@ class Game extends React.Component{
     }
 
     render(){
+
         return <div className="board-container" 
                 onKeyDown={this.handleInput}
                 tabIndex="0"
             >
+            {this.gameMessage()}
             <Board 
                 tiles={this.state.tiles}
             />
