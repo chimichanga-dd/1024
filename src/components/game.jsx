@@ -22,6 +22,11 @@ class Game extends React.Component{
 
     componentDidMount(){
         this.createRandomTile()
+        window.addEventListener('keydown', this.handleInput)
+    }
+
+    componentWillUnmount(){
+        window.removeEventListener('keydown', this.handleInput)
     }
 
     startState(){
@@ -195,6 +200,10 @@ class Game extends React.Component{
             }
         }
 
+        if(!moveable || gameWon){
+            window.removeEventListener('keydown', this.handleInput)
+        }
+
         this.setState({moveable, gameWon})
     }
 
@@ -204,7 +213,7 @@ class Game extends React.Component{
             message = "You Win"
         }else if (!this.state.moveable){
             message = "You Lose"
-        } else {
+        }else {
             return null
         }
 
@@ -220,10 +229,7 @@ class Game extends React.Component{
 
     render(){
 
-        return <div className="board-container" 
-                onKeyDown={this.handleInput}
-                tabIndex="0"
-            >
+        return <div className="board-container">
             {this.gameMessage()}
             <Board 
                 tiles={this.state.tiles}
