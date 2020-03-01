@@ -9,11 +9,11 @@ class TileContainer extends React.Component{
         this.props.tiles.forEach( (row, idx1) => {
             row.forEach( (tile, idx2) => {
                 if(tile){
-                    tiles.push({tile, row: idx1, col: idx2})
+                    tiles.push({ tile, row: idx1, col: idx2, uid: tile.uid})
                 }
             })
         })
-        return tiles.map( (tile) => <Tile tile={tile} row={tile.row} col={tile.col} key={tile}/>)
+        return tiles.map( (tile) => <Tile tile={tile} row={tile.row} col={tile.col} key={tile.uid}uid={tile.uid}/>)
     }
 
 
