@@ -194,7 +194,7 @@ class Game extends React.Component{
         for (let i = 0; i < 4; i++) {
             for (let j = 0; j < 4; j++) {
                 let tile = tiles[i][j]
-                if(tile && tile.value == 16){
+                if(tile && tile.value == 1024){
                     gameWon = true
                 }
             }

@@ -6,7 +6,6 @@
     left: 10px;
     bottom: 10px;
     right: 10px;
-    
 }
 
 .tile{
@@ -16,6 +15,7 @@
     height: 100px;
     justify-content: center;
     align-items: center;
+    transition: transform .15s ease
 }
 
 .tile-val-2{
