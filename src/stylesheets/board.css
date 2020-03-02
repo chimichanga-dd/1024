@@ -33,11 +33,24 @@
 .message-modal{
     position: absolute;
     z-index: 2;
-    background-color: rgba(255, 255, 255, 0.658);
+    background-color: rgba(255, 255, 255, .65);
     width: 100%;
     height: 100%;
 
     display: flex;
     justify-content: center;
     align-items: center;
+    animation: display-message 2s ease;
+}
+
+@keyframes display-message{
+    from{
+        opacity: 0;
+    }
+    50%{
+        opacity: 0;
+    }
+    to{
+        opacity: 1;
+    }
 }
