@@ -46,6 +46,7 @@
 .message-modal > p{
     font-size: 50px;
     color: #776D63;
+    font-weight: bold;
 }
 
 @keyframes display-message{
