@@ -2,6 +2,7 @@
 
 import React from "react";
 import Board from "./board"
+
 import cloneDeep from 'lodash/clonedeep'
 
 const DIRECTIONS = {

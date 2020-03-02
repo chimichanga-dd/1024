@@ -1,15 +1,6 @@
 import React from "react";
 import ReactDOM from "react-dom";
-import Game from "./components/game"
-import Header from "./components/header"
-
-
-const App = () => {
-    return <div className="app">
-        <Header />
-        <Game />
-    </div>
-}
+import App from "./components/app"
 
 
 document.addEventListener("DOMContentLoaded", () => {
