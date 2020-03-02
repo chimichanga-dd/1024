@@ -8,6 +8,7 @@
 
 body{
     font-family: "Helvetica Neue", sans-serif;
+    background-color: #faf8ef
 }
 
 button:hover{
@@ -16,9 +17,4 @@ button:hover{
 
 button:focus{
     outline: none;
-}
-
-.app{
-    height: 100vh;
-    background-color: #faf8ef;
 }
