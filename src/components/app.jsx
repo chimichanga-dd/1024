@@ -10,12 +10,16 @@ class App extends React.Component{
         super(props)
 
         this.state = {
-            score: null
+            score: 0
         }
     }
 
     updateScore(gameScore){
-        this.setState({ score: this.state.score + gameScore });
+        if (!gameScore) {
+            this.setState({score: 0})
+        } else {
+            this.setState({ score: this.state.score + gameScore });
+        }
     }
 
     render(){

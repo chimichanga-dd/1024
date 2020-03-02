@@ -7,23 +7,18 @@ class Header extends React.Component {
         super(props)
 
         this.state = {
-            score: null
+            score: 0
         }
     }
 
-    componentDidMount(){
-        this.setState({score: this.props.score})
-    }
-
     componentDidUpdate(prevProps) {
-        if(prevProps.score != this.props.score){
+        if ( prevProps.score != this.props.score){
             this.setState({score: this.props.score})
         }
     }
 
     render(){
         let score = this.state.score
-        console.log(this.props)
 
         return (
             <div className="game-header">

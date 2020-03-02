@@ -43,6 +43,7 @@ class Game extends React.Component{
             tileIdx: 0,
             moveable: true,
             gameWon: false,
+            score: 0,
         }
     }
 
@@ -92,6 +93,7 @@ class Game extends React.Component{
         let moveDir = DIRECTIONS[dir]
         let moved = false
         let updatedTiles = cloneDeep(this.state.tiles);
+        let updateScore = this.props.updateScore;
 
         for(let i = 0; i < 4; i++){
             for(let j = 0; j < 4; j++){
@@ -135,6 +137,8 @@ class Game extends React.Component{
                     nextTile.canMerge = false;
                     updatedTiles[row][col] = null
                     moved = true
+                    //use callback from app to update app state then header score
+                    updateScore(nextTile.value)
                 } else {
                     if (nextCol !== col || nextRow !== row) {
                         updatedTiles[nextRow][nextCol] = {
@@ -228,14 +232,12 @@ class Game extends React.Component{
 
         return(<div className="message-modal">
             <p>{message}</p>
-            <button onClick={
-                () => this.newGame()
-            }
-            >Try again</button>
+            <button onClick={ () => this.newGame()}>Try again</button>
         </div>)
     }
 
     newGame(){
+        this.props.updateScore()
         this.setState(this.startState(), () => this.createRandomTiles(2))
 
         //remove event listener if it exists - no harm if it doesn't
