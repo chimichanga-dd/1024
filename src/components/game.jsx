@@ -21,7 +21,7 @@ class Game extends React.Component{
     }
 
     componentDidMount(){
-        this.createRandomTile()
+        this.createRandomTiles(2)
         window.addEventListener('keydown', this.handleInput)
     }
 
@@ -49,8 +49,9 @@ class Game extends React.Component{
         return Math.floor(Math.random() * number)
     }
 
-    createRandomTile(){
+    createRandomTiles(numOfTiles = 1){
         let boardCopy = cloneDeep(this.state.tiles)
+        let tileIdx = this.state.tileIdx
         let emptyTiles = []
 
         for (let i = 0; i < 4; i++) {
@@ -62,22 +63,27 @@ class Game extends React.Component{
             }
         }
 
-        let randomValue = Math.random() < .9 ?  2 : 4;
+        for( let i = 0; i < numOfTiles; i++){
+            let randomValue = Math.random() < .9 ? 2 : 4;
+            let randomNumber = this.random(emptyTiles.length)
+            let [x, y] = emptyTiles[randomNumber]
+            boardCopy[x][y] = {
+                value: randomValue,
+                col: x,
+                row: y,
+                uid: tileIdx,
+                canMerge: true
+            }
+            //remove newly added tile from list of empty tiles
+            emptyTiles.splice(randomNumber, 1);
+            tileIdx+= 1
+        }
 
-        let randomNumber = this.random(emptyTiles.length)
         
-        let [x,y] = emptyTiles[randomNumber]
-        boardCopy[x][y] = { 
-                            value: randomValue,
-                            col: x,
-                            row: y,
-                            uid: this.state.tileIdx,
-                            canMerge: true
-                        }
 
         this.setState(
-            { tiles: boardCopy, tileIdx: this.state.tileIdx + 1},
-            () => this.setGameWon()
+            { tiles: boardCopy, tileIdx},
+            () => this.setGameStatus()
         )
     }
 
@@ -147,7 +153,7 @@ class Game extends React.Component{
         if (moved) {
             this.setState(
                 { tiles: updatedTiles },
-                () => {this.createRandomTile()}
+                () => { this.createRandomTiles()}
             )
             moved = false
         }
@@ -185,7 +191,7 @@ class Game extends React.Component{
         return false
     }
 
-    setGameWon(){
+    setGameStatus(){
         let moveable = true
         if (!this.canMove()) {
             moveable = false
@@ -212,16 +218,29 @@ class Game extends React.Component{
     gameMessage(){
         let message
         if( this.state.gameWon){
-            message = "You Win"
+            message = "You win"
         }else if (!this.state.moveable){
-            message = "You Lose"
+            message = "You lose"
         }else {
             return null
         }
 
         return(<div className="message-modal">
             <p>{message}</p>
+            <button onClick={
+                () => this.newGame()
+            }
+            >Try again</button>
         </div>)
+    }
+
+    newGame(){
+        this.setState(this.startState(), () => this.createRandomTiles(2))
+
+        //remove event listener if it exists - no harm if it doesn't
+        window.removeEventListener('keydown', this.handleInput)
+        //add event listener back to the window for a new game
+        window.addEventListener('keydown', this.handleInput)
     }
 
     handleInput(e){
