@@ -9,6 +9,14 @@ body{
     font-family: "Helvetica Neue", sans-serif;
 }
 
+button:hover{
+    cursor: pointer;
+}
+
+button:focus{
+    outline: none;
+}
+
 .app{
     height: 100vh;
     background-color: #faf8ef;
