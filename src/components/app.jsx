@@ -2,6 +2,7 @@
 import React from "react"
 import Game from "./game"
 import Header from "./header"
+import GitHubLogo from "../images/GitHubMark/GitHub-Mark-64px.png"
 
 
 class App extends React.Component{
@@ -29,6 +30,9 @@ class App extends React.Component{
                 <Game updateScore={this.updateScore.bind(this)}/>
                 <div className="directions">
                     <strong>HOW TO PLAY:</strong> Use your <strong>arrow keys</strong> to move the tiles. When two tiles with the same number touch, they <strong>merge into one!</strong>
+                </div>
+                <div className="links">
+                    <a href="https://github.com/chimichanga-dd/1024"><img src={GitHubLogo} alt="git hub mark"/></a>
                 </div>
             </div>
         )
