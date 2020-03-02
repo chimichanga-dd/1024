@@ -31,7 +31,6 @@ class Header extends React.Component {
                 </div>
                 <div className="desc-and-new-game">
                     <p>Join the numbers and get to the <strong>1024</strong> tile!</p>
-                    <button> DOES NOTHING </button>
                 </div>
             </div>
         )
