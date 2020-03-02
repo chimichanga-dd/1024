@@ -2,6 +2,12 @@
 
 .directions{
     width: 450px;
-    margin: 0 auto;
+    padding-top: 40px;
+    padding-bottom: 40px;
+    border-bottom: 1px solid #a5a5a5
+}
+
+.links{
+    margin-bottom: 40px;
     margin-top: 40px;
 }
