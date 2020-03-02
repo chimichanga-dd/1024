@@ -225,14 +225,15 @@ class Game extends React.Component{
         if( this.state.gameWon){
             message = "You win"
         }else if (!this.state.moveable){
-            message = "You lose"
+            message = "Game Over"
         }else {
             return null
         }
+        let buttonText = message == "You win" ? "Play again" : "Try again"
 
         return(<div className="message-modal">
             <p>{message}</p>
-            <button onClick={ () => this.newGame()}>Try again</button>
+            <button onClick={() => this.newGame()}>{buttonText}</button>
         </div>)
     }
 
