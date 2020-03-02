@@ -254,6 +254,10 @@ class Game extends React.Component{
     render(){
 
         return <div className="game-container">
+            <button 
+                className="new-game button"
+                onClick={() => this.newGame()}                
+            >New Game</button>
             {this.gameMessage()}
             <Board 
                 tiles={this.state.tiles}
