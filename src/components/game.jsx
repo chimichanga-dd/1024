@@ -62,11 +62,13 @@ class Game extends React.Component{
             }
         }
 
+        let randomValue = Math.random() < .9 ?  2 : 4;
+
         let randomNumber = this.random(emptyTiles.length)
         
         let [x,y] = emptyTiles[randomNumber]
         boardCopy[x][y] = { 
-                            value: 2,
+                            value: randomValue,
                             col: x,
                             row: y,
                             uid: this.state.tileIdx,
