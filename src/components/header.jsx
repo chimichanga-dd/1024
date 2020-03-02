@@ -24,9 +24,9 @@ class Header extends React.Component {
             <div className="game-header">
                 <div className="title-and-score">
                     <h1 className="title">1024</h1>
-                    <div className="score">
-                        <h5>score</h5>
-                        <div>{score}</div>
+                    <div className="score-container">
+                        <h5 className="score-title">score</h5>
+                        <div className="score-number">{score}</div>
                     </div>
                 </div>
                 <div className="desc-and-new-game">
