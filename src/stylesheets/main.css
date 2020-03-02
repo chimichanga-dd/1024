@@ -1,7 +1,8 @@
 @import url("reset.css");
+@import url("header.css");
+@import url("game.css");
 @import url("board.css");
 @import url("tile.css");
-@import url("game.css");
 
 
 p{
