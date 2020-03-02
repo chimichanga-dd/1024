@@ -5,6 +5,6 @@ import Game from "./components/game"
 
 
 document.addEventListener("DOMContentLoaded", () => {
-    let gameContainer = document.getElementById("game-container");
+    let gameContainer = document.getElementById("app-container");
     ReactDOM.render(<Game />, gameContainer)
 })

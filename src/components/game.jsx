@@ -250,7 +250,7 @@ class Game extends React.Component{
 
     render(){
 
-        return <div className="board-container">
+        return <div className="game-container">
             {this.gameMessage()}
             <Board 
                 tiles={this.state.tiles}
