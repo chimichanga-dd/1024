@@ -3,7 +3,7 @@
 import React from "react";
 import Board from "./board"
 
-import cloneDeep from 'lodash/clonedeep'
+import {cloneDeep} from 'lodash'
 
 const DIRECTIONS = {
     37: [-1, 0], //left
