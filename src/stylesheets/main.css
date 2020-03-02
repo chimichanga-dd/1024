@@ -5,11 +5,11 @@
 @import url("tile.css");
 
 
+body{
+    font-family: "Helvetica Neue", sans-serif;
+}
+
 .app{
     height: 100vh;
     background-color: #faf8ef;
-}
-
-p{
-    font-family: "Helvetica Neue", sans-serif;
 }
