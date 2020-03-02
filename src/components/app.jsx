@@ -32,7 +32,11 @@ class App extends React.Component{
                     <strong>HOW TO PLAY:</strong> Use your <strong>arrow keys</strong> to move the tiles. When two tiles with the same number touch, they <strong>merge into one!</strong>
                 </div>
                 <div className="links">
-                    <a href="https://github.com/chimichanga-dd/1024"><img src={GitHubLogo} alt="git hub mark"/></a>
+                    <a 
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        href="https://github.com/chimichanga-dd/1024"><img src={GitHubLogo} alt="git hub mark"/>
+                    </a>
                 </div>
             </div>
         )
