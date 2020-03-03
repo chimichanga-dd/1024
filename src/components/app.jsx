@@ -11,7 +11,8 @@ class App extends React.Component{
         super(props)
 
         this.state = {
-            score: 0
+            score: 0, 
+            bestScore: this.getBestScore()
         }
     }
 
@@ -19,14 +20,24 @@ class App extends React.Component{
         if (!gameScore) {
             this.setState({score: 0})
         } else {
-            this.setState({ score: this.state.score + gameScore });
+            let newScore = this.state.score + gameScore
+            if (newScore > this.state.bestScore){
+                localStorage.setItem("bestScore", newScore)
+                this.setState({ score: newScore, bestScore: newScore })
+            } else {
+                this.setState({ score: newScore })
+            }
         }
+    }
+
+    getBestScore(){
+        return localStorage.getItem("bestScore") || 0
     }
 
     render(){
         return(
             <div className="app">
-                <Header score={this.state.score}/>
+                <Header score={this.state.score} bestScore={this.state.bestScore}/>
                 <Game updateScore={this.updateScore.bind(this)}/>
                 <div className="directions">
                     <strong>HOW TO PLAY:</strong> Use your <strong>arrow keys</strong> to move the tiles. When two tiles with the same number touch, they <strong>merge into one!</strong>
