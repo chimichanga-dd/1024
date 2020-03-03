@@ -21,7 +21,10 @@
     justify-content: center;
     align-items: center;
     transition: transform .15s ease;
-    
+}
+
+.new-tile{
+    animation: new-tile .2s ease;
 }
 
 .tile-val-2{
@@ -58,3 +61,15 @@
     background-color: #4b74c0;
 }
 
+
+@keyframes new-tile{
+
+    from{
+        transform: scale(0)
+    }
+
+    to{
+        transform: scale(1);
+    }
+
+}

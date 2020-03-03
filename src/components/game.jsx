@@ -74,7 +74,8 @@ class Game extends React.Component{
                 col: x,
                 row: y,
                 uid: tileIdx,
-                canMerge: true
+                canMerge: true,
+                newTile: true
             }
             //remove newly added tile from list of empty tiles
             emptyTiles.splice(randomNumber, 1);
@@ -114,6 +115,7 @@ class Game extends React.Component{
                 if(!currentTile){ continue }
 
                 currentTile.canMerge = true;
+                currentTile.newTile = false;
 
                 let nextRow = row + moveDir[1]
                 let nextCol = col + moveDir[0]
