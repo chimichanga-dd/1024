@@ -33,6 +33,10 @@ h1{
     padding: 10px 20px;
 }
 
+.best-score{
+    margin-left: 10px;
+}
+
 .score-title{
     color: #eeddc2
 }
