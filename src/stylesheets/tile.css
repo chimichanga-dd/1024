@@ -27,6 +27,10 @@
     animation: new-tile .2s ease;
 }
 
+.merge-tile{
+    animation: merge-tile .3s ease;
+}
+
 .tile-val-2{
     background-color: #eee4da;
     color: #776D63;
@@ -66,6 +70,22 @@
 
     from{
         transform: scale(0)
+    }
+
+    to{
+        transform: scale(1);
+    }
+
+}
+
+@keyframes merge-tile{
+
+    from{
+        transform: scale(0)
+    }
+
+    90%{
+        transform: scale(1.5);
     }
 
     to{

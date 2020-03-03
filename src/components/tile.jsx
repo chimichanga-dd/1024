@@ -3,13 +3,14 @@ import React from "react"
 class Tile extends React.Component{
 
     render(){
-        let{ tile, col, row, uid, newTile} = this.props
+        let { tile, col, row, uid, newTile, mergeTile } = this.props
         
         tile = tile.tile
         newTile = newTile ? "new-tile" : ""
+        mergeTile = !mergeTile ? "merge-tile" : ""
 
         let containerClasses = [`tile`, `tile-val-${tile.value}`].join(" ")
-        let tileClass = [`inner-tile`,`${newTile}`].filter(Boolean).join(" ")
+        let tileClass = [`inner-tile`, `${newTile}`, `${mergeTile}`].filter(Boolean).join(" ")
 
         let x = col * (100 + 10) + 'px'
         let y = row * (100 + 10) + 'px'

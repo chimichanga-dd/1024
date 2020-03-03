@@ -9,7 +9,13 @@ class TileContainer extends React.Component{
         this.props.tiles.forEach( (row, idx1) => {
             row.forEach( (tile, idx2) => {
                 if(tile){
-                    tiles.push({ tile, row: idx1, col: idx2, uid: tile.uid, newTile: tile.newTile})
+                    tiles.push({ tile, 
+                                 row: idx1,
+                                 col: idx2, 
+                                 uid: tile.uid, 
+                                 newTile: tile.newTile,
+                                 mergeTile: tile.canMerge,
+                                })
                 }
             })
         })
@@ -20,7 +26,9 @@ class TileContainer extends React.Component{
                                         key={tile.uid}
                                         uid={tile.uid}
                                         newTile={tile.newTile}
-                                    />)
+                                        mergeTile={tile.mergeTile}
+                                    />
+                        )
     }
 
 
