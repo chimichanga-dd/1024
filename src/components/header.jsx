@@ -1,24 +1,9 @@
 
 import React from "react"
 
-class Header extends React.Component {
+const Header = (props) => {
 
-    constructor(props){
-        super(props)
-
-        this.state = {
-            score: 0
-        }
-    }
-
-    componentDidUpdate(prevProps) {
-        if ( prevProps.score != this.props.score){
-            this.setState({score: this.props.score})
-        }
-    }
-
-    render(){
-        let score = this.state.score
+        let {score, bestScore} = props
 
         return (
             <div className="game-header">
@@ -28,13 +13,16 @@ class Header extends React.Component {
                         <h5 className="score-title">score</h5>
                         <div className="score-number">{score}</div>
                     </div>
+                    <div className="score-container">
+                        <h5 className="score-title">best score</h5>
+                        <div className="score-number">{bestScore}</div>
+                    </div>
                 </div>
                 <div className="desc-and-new-game">
                     <p>Join the numbers and get to the <strong>1024</strong> tile!</p>
                 </div>
             </div>
         )
-    }
 }
 
 export default Header
