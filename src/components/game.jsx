@@ -248,7 +248,7 @@ class Game extends React.Component{
     }
 
     handleInput(e){
-        e.stopPropagation();
+        e.preventDefault();
         this.move(e.keyCode)
     }
 
