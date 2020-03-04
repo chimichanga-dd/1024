@@ -4,14 +4,13 @@
 
 A clone of a clone (2048) of a clone (1024) of a game (threes)
 
-
 <img src="https://media.giphy.com/media/h5ill3oXrJ2g2Orrej/giphy.gif" alt="demo gif">
-
 
 ### Tech Stack
 
 * React
 * Heroku
+
 
 ## Sliding
 * Placement of the tiles and sliding via the transform CSS property translate3d
@@ -65,9 +64,13 @@ if( nextTile && nextTile.canMerge && nextTile.value == currentTile.value ){
 * Win by creating a 1024 tile
 * Lose by filling the board and have no available moves
 
-<img src="https://media.giphy.com/media/QzANvEkbLVGmAkDlGQ/giphy.gif" alt="Win Gif">
+|      Win      |       Lose       |
+| ------------- | ---------------- |
+| <img src="https://media.giphy.com/media/QzANvEkbLVGmAkDlGQ/giphy.gif" alt="Win Gif">  | <img src="https://media.giphy.com/media/kDwmaq3O9IeT0grAa2/giphy.gif" alt="Lose Gif">  |
 
-<img src="https://media.giphy.com/media/kDwmaq3O9IeT0grAa2/giphy.gif" alt="Lose Gif">
+
+
+
 
 ``` javascript
 setGameStatus(){
@@ -116,5 +119,3 @@ updateScore(gameScore){
     }
 }
 ```
-
-<img src="https://media.giphy.com/media/QzANvEkbLVGmAkDlGQ/giphy.gif" alt="Win Gif">
