@@ -1,6 +1,6 @@
 
 # 1024
-[Live Link](https://ten-twenty-four.herokuapp.com/)
+[Live Link](https://1024.daviddixon.io/)
 
 A clone of a clone (2048) of a clone (1024) of a game (threes)
 
